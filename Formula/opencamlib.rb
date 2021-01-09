@@ -24,9 +24,9 @@ class Opencamlib < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "freecad/freecad/boost@1.75.0"
-  depends_on "freecad/freecad/boost-python3@1.75.0"
-  depends_on "freecad/freecad/python3.9"
+  depends_on "boost"
+  depends_on "boost-python3"
+  depends_on "python@3.9"
 
   def install
     args = std_cmake_args + %W[
@@ -37,10 +37,6 @@ class Opencamlib < Formula
       -DUSE_PY_3=TRUE
       -DPYTHON_VERSION_SUFFIX=3
     ]
-
-    args << "-DCMAKE_PREFIX_PATH=" + \
-            Formula["freecad/freecad/boost@1.75.0"].opt_prefix+ "/lib/cmake;" + \
-            Formula["freecad/freecad/boost-python3@1.75.0"].opt_prefix+ "/lib/cmake;"
 
     mkdir "build" do
       system "cmake", *args, ".."

@@ -29,29 +29,26 @@ class Freecad < Formula
   depends_on "ccache" => :build
   depends_on "cmake" => :build
   depends_on "swig" => :build
-  depends_on "freecad/freecad/boost@1.75.0"
-  depends_on "freecad/freecad/boost-python3@1.75.0"
-  depends_on "freecad/freecad/coin@4.0.0"
+  depends_on "boost"
+  depends_on "boost-python3"
+  depends_on "coin3d"
   depends_on "freecad/freecad/med-file"
   depends_on "freecad/freecad/nglib"
   depends_on "freecad/freecad/opencamlib"
-  depends_on "freecad/freecad/pivy"
-  depends_on "freecad/freecad/pyside2"
-  depends_on "freecad/freecad/pyside2-tools"
-  depends_on "freecad/freecad/shiboken2"
   depends_on "freetype"
   depends_on macos: :high_sierra # no access to sierra test box
+  depends_on "numpy" # for matplotlib
   depends_on "open-mpi"
   depends_on "openblas"
-  depends_on "freecad/freecad/opencascade@7.5.0"
+  depends_on "opencascade"
   depends_on "orocos-kdl"
   depends_on "pkg-config"
-  depends_on "freecad/freecad/python3.9"
-  depends_on "freecad/freecad/qt5152"
-  depends_on "freecad/freecad/vtk@8.2.0"
+  depends_on "pyside"
+  depends_on "python@3.9"
+  depends_on "qt@5"
+  depends_on "vtk@8.2"
   depends_on "webp"
   depends_on "xerces-c"
-  depends_on "numpy" # for matplotlib
 
   # Matplot lib w. dependencies
   resource "Cycler" do
@@ -113,9 +110,8 @@ class Freecad < Formula
       -DBUILD_FEM_NETGEN:BOOL=ON
       -DFREECAD_USE_EXTERNAL_KDL=ON
       -DCMAKE_BUILD_TYPE=#{build.with?("debug") ? "Debug" : "Release"}
+      -DCMAKE_PREFIX_PATH=#{Formula["freecad/freecad/nglib"].opt_prefix}/Contents/Resources
     ]
-
-    args << '-DCMAKE_PREFIX_PATH="' + Formula["freecad/freecad/qt5152"].opt_prefix + "/lib/cmake;" + Formula["freecad/freecad/nglib"].opt_prefix + "/Contents/Resources;" + Formula["freecad/freecad/vtk@8.2.0"].opt_prefix + "/lib/cmake;" + Formula["freecad/freecad/opencascade@7.5.0"].opt_prefix + "/lib/cmake;"+ Formula["freecad/freecad/med-file"].opt_prefix + "/share/cmake/;" + Formula["freecad/freecad/shiboken2"].opt_prefix + "/lib/cmake;" + Formula["freecad/freecad/pyside2"].opt_prefix+ "/lib/cmake;" + Formula["freecad/freecad/coin@4.0.0"].opt_prefix+ "/lib/cmake;" + Formula["freecad/freecad/boost@1.75.0"].opt_prefix+ "/lib/cmake;" + Formula["freecad/freecad/boost-python3@1.75.0"].opt_prefix+ "/lib/cmake;"
 
     # The web widget is disabled in QT on Apple silicon due to missing
     # upstream support.

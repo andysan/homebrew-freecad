@@ -4,8 +4,8 @@ class Pivy < Formula
   head "https://bitbucket.org/Coin3D/pivy", :using => :git
   version "0.6.5"
 
-  depends_on "freecad/freecad/python3.9" => :build
-  depends_on "freecad/freecad/swig@4.0.2"  => :build
+  depends_on "python@3.9" => :build
+  depends_on "swig"  => :build
   depends_on "cmake" => :build
   depends_on "freecad/freecad/coin@4.0.0"
 
