@@ -117,6 +117,10 @@ class Freecad < Formula
 
     args << '-DCMAKE_PREFIX_PATH="' + Formula["freecad/freecad/qt5152"].opt_prefix + "/lib/cmake;" + Formula["freecad/freecad/nglib"].opt_prefix + "/Contents/Resources;" + Formula["freecad/freecad/vtk@8.2.0"].opt_prefix + "/lib/cmake;" + Formula["freecad/freecad/opencascade@7.5.0"].opt_prefix + "/lib/cmake;"+ Formula["freecad/freecad/med-file"].opt_prefix + "/share/cmake/;" + Formula["freecad/freecad/shiboken2"].opt_prefix + "/lib/cmake;" + Formula["freecad/freecad/pyside2"].opt_prefix+ "/lib/cmake;" + Formula["freecad/freecad/coin@4.0.0"].opt_prefix+ "/lib/cmake;" + Formula["freecad/freecad/boost@1.75.0"].opt_prefix+ "/lib/cmake;" + Formula["freecad/freecad/boost-python3@1.75.0"].opt_prefix+ "/lib/cmake;"
 
+    # The web widget is disabled in QT on Apple silicon due to missing
+    # upstream support.
+    args << "-DBUILD_WEB=false" if Hardware::CPU.arm?
+
     args << "-DFREECAD_CREATE_MAC_APP=1" if build.with? "macos-app"
     args << "-DBUILD_CLOUD=1" if build.with? "cloud"
     args << "-DALLOW_SELF_SIGNED_CERTIFICATE=1" if build.with? "unsecured-cloud"
