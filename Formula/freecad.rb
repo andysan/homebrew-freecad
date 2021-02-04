@@ -28,6 +28,7 @@ class Freecad < Formula
 
   depends_on "ccache" => :build
   depends_on "cmake" => :build
+  depends_on "ninja" => :build
   depends_on "swig" => :build
   depends_on "boost"
   depends_on "boost-python3"
@@ -99,6 +100,7 @@ class Freecad < Formula
     end
 
     args = std_cmake_args + %W[
+      -GNinja
       -DBUILD_QT5=ON
       -DUSE_PYTHON3=1
       -DPYTHON_EXECUTABLE=#{venv_root}/bin/python3
@@ -125,7 +127,7 @@ class Freecad < Formula
 
     mkdir "Build" do
       system "cmake", *args, ".."
-      system "make", "-j#{ENV.make_jobs}", "install"
+      system "ninja", "install"
     end
     bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
     bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
