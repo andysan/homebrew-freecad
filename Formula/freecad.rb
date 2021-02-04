@@ -12,6 +12,12 @@ class Freecad < Formula
     version "0.19pre-dev"
   end
 
+  bottle do
+    root_url "https:/dl.bintray.com/vejmarie/freecad"
+    sha256 big_sur:  "f9bc13c49a0ab3d72437dd721aa362d77638b68ad05f2bdcaeadf91b6d5e537b"
+    sha256 cataline: "8ef75eb7cea8ca34dc4037207fb213332b9ed27976106fd83c31de1433c2dd29"
+  end
+
   option "with-debug", "Enable debug build"
   option "with-macos-app", "Build MacOS App bundle"
   option "with-packaging-utils", "Optionally install packaging dependencies"
@@ -44,12 +50,6 @@ class Freecad < Formula
   depends_on "freecad/freecad/vtk@8.2.0"
   depends_on "webp"
   depends_on "xerces-c"
-
-  bottle do
-    root_url "https:/dl.bintray.com/vejmarie/freecad"
-    sha256 "f9bc13c49a0ab3d72437dd721aa362d77638b68ad05f2bdcaeadf91b6d5e537b" => :big_sur
-    sha256 "8ef75eb7cea8ca34dc4037207fb213332b9ed27976106fd83c31de1433c2dd29" => :catalina
-  end
 
   def install
     if !File.exist?('/usr/local/lib/python3.9/site-packages/six.py')
