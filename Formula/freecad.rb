@@ -135,9 +135,9 @@ class Freecad < Formula
   def post_install
     bin.install_symlink "../MacOS/FreeCAD" => "FreeCAD"
     bin.install_symlink "../MacOS/FreeCADCmd" => "FreeCADCmd"
-    if !File.exist?("/usr/local/Cellar/freecad/0.19pre/lib/python3.9/site-packages/homebrew-freecad-bundle.pth")
-      (lib/"python3.9/site-packages/homebrew-freecad-bundle.pth").write "#{prefix}/MacOS/\n"
-    end
+
+    pth_file = lib/"python3.9/site-packages/homebrew-freecad-bundle.pth"
+    (pth_file).write "#{prefix}/MacOS/\n" unless File.exist?(pth_file)
   end
 
   def caveats
